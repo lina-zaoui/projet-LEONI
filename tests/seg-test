@@ -1,0 +1,25 @@
+from ultralytics import YOLO
+
+model = YOLO("yolo11n-seg.pt")
+
+val_path = r"C:\Users\Administrator\Desktop\stage-LEONI\projet-LEONI\data\raw\segmentation\valid\images"
+
+results = model.predict(
+    source=val_path,
+    imgsz=640,
+    conf=0.25,
+    save=True,
+    save_txt=True
+)
+
+print("Validation predictions completed!")
+
+import matplotlib.pyplot as plt
+from PIL import Image
+
+result_image = results[0].plot()
+
+plt.figure(figsize=(12, 8))
+plt.imshow(result_image)
+plt.axis("off")
+plt.show()
